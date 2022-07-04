@@ -72,7 +72,7 @@ public class BinaryTreeLevelOrder {
 		// TreeNode r = CommonUtils.insertLevelOrderToBinaryTree(new int[] {3,
 		// 9,20,0,0,15,7}, root, 1);
 		// CommonUtils.print2D(root);
-		levelOrder1(root).forEach(elm -> System.out.println(elm));
+		levelOrder(root).forEach(elm -> System.out.println(elm));
 	}
 	
 }

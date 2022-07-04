@@ -1,3 +1,4 @@
 
 *.class
 bin/leetCodeProblems/medium/BinaryTreeLevelOrder.class
+*.class
