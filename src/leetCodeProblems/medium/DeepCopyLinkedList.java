@@ -18,13 +18,15 @@ public class DeepCopyLinkedList {
 		Map<Node, Node> original_to_copy_map = new HashMap<>();
 
 		Node original = head;
+		// iterate through the nodes and clone them and put each clone into map hashed
+		// and referenced by the original
 
 		while (original != null) {
 			Node clone = new Node(original.val);
 			original_to_copy_map.put(original, clone);
 			original = original.next;
 		}
-
+		// reset the iterator into the head again to start wiring the clone pointers
 		original = head;
 
 		while (original != null) {
@@ -51,42 +53,44 @@ public class DeepCopyLinkedList {
 	 * 
 	 */
 	public Node copyRandomList(Node head) {
-		if(head == null) {
-			return null;
+		Node curr = head, temp = null;
+
+		// insert additional node after
+		// every node of original list
+		while (curr != null) {
+			temp = curr.next;
+
+			// Inserting node
+			curr.next = new Node(curr.val);
+			curr.next.next = temp;
+			curr = temp;
 		}
-		Node current = head, temp = null;
-//clone each node and wire the copied node next to its original : A-> A'-> B-> B'
-		while(current != null) {
-			Node clone = new Node(current.val);
-			Node original_next = current.next;
-			current.next = clone;
-			current = original_next;
+		curr = head;
+
+		// adjust the random pointers of the
+		// newly added nodes
+		while (curr != null) {
+			if (curr.next != null)
+				curr.next.random = (curr.random != null) ? curr.random.next : curr.random;
+
+			// move to the next newly added node by
+			// skipping an original node
+			curr = curr.next.next;
 		}
-		current = head; //set current back to the head
-		//adjust random pointer of the cloned nodes
-		while(current != null) {
-			if(current.next != null) {
-				current.next.random = current.random != null ? current.random.next : null;	
-			}
-			
-		    current = (current.next) != null ? current.next.next : null;	
-		}
-		
-		
-		//split the origianl list from the cloned
-		// set two pointers while traversing, one for the original and other for clone
-		Node original = head;
-		Node clone = head.next; 
-		temp = clone;
-		while(original != null && clone != null) {
-			original.next = (original.next)!= null ? original.next.next : null;
-			clone.next = (clone.next)!= null ? clone.next.next : null;
-			
+
+		Node original = head, copy = head.next;
+
+		// save the start of copied linked list
+		temp = copy;
+
+		// now separate the original list and copied list
+		while (original != null) {
+			original.next = original.next.next;
+
+			copy.next = (copy.next != null) ? copy.next.next : copy.next;
 			original = original.next;
-			clone = clone.next;
-			
+			copy = copy.next;
 		}
-		
 		return temp;
 	}
 
