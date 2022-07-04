@@ -8,9 +8,25 @@ import java.util.Queue;
 import common.CommonUtils;
 import common.TreeNode;
 
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
 public class BinaryTreeLevelOrder {
 
-	/* solved it right one shoot using BFS with queue
+	/* solved it right one shot using BFS with queue
 	 * Time complexity : O(N) since each node is processed exactly once.
 	 * Space complexity : O(N) to keep the output structure which
 	 * contains N node values.
