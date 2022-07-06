@@ -65,6 +65,9 @@ public class ReverseLinkedList {
 		// printListValues(l1);
 		printListValues(rl.reverseList(l1));
 	//	printListValues(rl.reverseList_recursively(l1));
+		
+		String s= "apple";
+		System.out.println(s.substring(0, 1));
 	}
 
 	public static void printListValues(ListNode l) {

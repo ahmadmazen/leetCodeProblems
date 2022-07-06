@@ -1,5 +1,8 @@
 package leetCodeProblems.medium;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import common.TreeNode;
 
 /*
@@ -42,7 +45,38 @@ public class IsValidBST {
 		}
 		return isNodeValInRange(node.left, min, node.val) && isNodeValInRange(node.right, node.val, max);
 	}
-	
-	
 
+	// Breadth-first-search with queue approach:
+	public boolean isValidBST_BFS(TreeNode root) {
+		Queue<AugmentedTreeNode> queue = new LinkedList<>();
+		queue.add(new AugmentedTreeNode(root, Long.MIN_VALUE, Long.MAX_VALUE));
+
+		while (!queue.isEmpty()) {
+			AugmentedTreeNode augmentedNode = queue.poll();
+
+			if (augmentedNode.node != null) {
+				// Check the constraints on the node
+				int nodeValue = augmentedNode.node.val;
+				if (nodeValue <= augmentedNode.min || nodeValue >= augmentedNode.max) {
+					return false;
+				}
+
+				queue.add(new AugmentedTreeNode(augmentedNode.node.left, augmentedNode.min, nodeValue));
+				queue.add(new AugmentedTreeNode(augmentedNode.node.right, nodeValue, augmentedNode.max));
+			}
+		}
+    
+		return true;
+	}
+
+	private class AugmentedTreeNode {
+		TreeNode node;
+		long min, max;
+
+		public AugmentedTreeNode(TreeNode node, long min, long max) {
+			this.node = node;
+			this.min = min;
+			this.max = max;
+		}
+	}
 }
